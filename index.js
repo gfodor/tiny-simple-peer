@@ -1,10 +1,11 @@
 /*! simple-peer. MIT License. Feross Aboukhadijeh <https://feross.org/opensource> */
-const debug = require('debug')('simple-peer')
-const getBrowserRTC = require('get-browser-rtc')
-const randomstring = require('random-string')
-const queueMicrotask = require('queue-microtask')
-const EventEmitter = require('events')
-const errCode = require('err-code')
+import Debug from 'debug'
+import getBrowserRTC from 'get-browser-rtc'
+import randomstring from 'random-string'
+import EventEmitter from 'events'
+import errCode from 'err-code'
+
+const debug = Debug('simple-peer')
 
 const MAX_BUFFERED_AMOUNT = 64 * 1024
 const ICECOMPLETE_TIMEOUT = 5 * 1000
@@ -24,7 +25,7 @@ function warn (message) {
  * Duplex stream.
  * @param {Object} opts
  */
-class Peer extends EventEmitter {
+export default class Peer extends EventEmitter {
   constructor (opts) {
     opts = Object.assign({
       allowHalfOpen: false
@@ -1037,5 +1038,3 @@ Peer.config = {
 }
 
 Peer.channelConfig = {}
-
-module.exports = Peer
