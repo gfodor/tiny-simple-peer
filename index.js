@@ -43,6 +43,7 @@ class Peer extends EventEmitter {
     this.channelConfig = opts.channelConfig || Peer.channelConfig
     this.channelNegotiated = this.channelConfig.negotiated
     this.config = Object.assign({}, Peer.config, opts.config)
+    this.proprietaryConstraints = Object.assign({}, Peer.proprietaryConstraints, opts.proprietaryConstraints)
     this.offerOptions = opts.offerOptions || {}
     this.answerOptions = opts.answerOptions || {}
     this.sdpTransform = opts.sdpTransform || (sdp => sdp)
@@ -97,7 +98,7 @@ class Peer extends EventEmitter {
     this._interval = null
 
     try {
-      this._pc = new (this._wrtc.RTCPeerConnection)(this.config)
+      this._pc = new (this._wrtc.RTCPeerConnection)(this.config, this.proprietaryConstraints)
     } catch (err) {
       this.destroy(errCode(err, 'ERR_PC_CONSTRUCTOR'))
       return
@@ -1037,5 +1038,6 @@ Peer.config = {
 }
 
 Peer.channelConfig = {}
+Peer.proprietaryConstraints = {}
 
 module.exports = Peer
