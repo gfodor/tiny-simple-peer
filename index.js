@@ -989,15 +989,13 @@ class Peer extends EventEmitter {
 
   _onTrack (event) {
     if (this.destroyed) return
+    const { track, receiver, streams } = event
 
-    event.streams.forEach(eventStream => {
+    streams.forEach(eventStream => {
       this._debug('on track')
-      this.emit('track', event.track, eventStream)
+      this.emit('track', track, eventStream, receiver)
 
-      this._remoteTracks.push({
-        track: event.track,
-        stream: eventStream
-      })
+      this._remoteTracks.push({ track, stream: eventStream })
 
       if (this._remoteStreams.some(remoteStream => {
         return remoteStream.id === eventStream.id
@@ -1006,7 +1004,7 @@ class Peer extends EventEmitter {
       this._remoteStreams.push(eventStream)
       queueMicrotask(() => {
         this._debug('on stream')
-        this.emit('stream', eventStream) // ensure all tracks have been added
+        this.emit('stream', eventStream, receiver) // ensure all tracks have been added
       })
     })
   }
