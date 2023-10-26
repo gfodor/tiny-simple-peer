@@ -2,6 +2,9 @@
   "name": "tiny-simple-peer",
   "description": "Simple one-to-one WebRTC video/voice and data channels, which drops stream support from simple-peer to improve performance and reduce bundle size",
   "version": "10.1.1",
+  "engines": {
+    "node": ">=10"
+  },
   "contributors": [
     {
       "name": "Feross Aboukhadijeh",
