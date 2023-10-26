@@ -3,7 +3,7 @@ const debug = require('debug')('simple-peer')
 const getBrowserRTC = require('get-browser-rtc')
 const randomstring = require('random-string')
 const queueMicrotask = require('queue-microtask')
-const EventEmitter = require('events')
+const { EventEmitter } = require('events')
 const errCode = require('err-code')
 
 const MAX_BUFFERED_AMOUNT = 64 * 1024
